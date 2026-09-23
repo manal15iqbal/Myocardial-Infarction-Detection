@@ -12,7 +12,7 @@ This project takes a different approach: **clinically-grounded feature engineeri
 
 ---
 
-## 🏗️ Pipeline Architecture
+## Pipeline Architecture
 
 ```
 ECG Input → Signal Preprocessing → Filtering → R-Peak Detection
