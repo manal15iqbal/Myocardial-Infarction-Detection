@@ -54,7 +54,7 @@ The top predictive features (via SHAP analysis) include RR variability, QRS dura
 
 ---
 
-## ⚙️ Methodology
+## Methodology
 
 1. **Signal preprocessing & cleaning** — invalid/incomplete/noisy records removed
 2. **Feature extraction** — ~80 features across 4 leads via NeuroKit2 + custom logic
