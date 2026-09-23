@@ -2,19 +2,13 @@
 
 An interpretable machine learning system that detects Myocardial Infarction (MI) from ECG recordings using manually engineered clinical features combined with ensemble learning — achieving **92.04% accuracy** and a **0.9713 ROC-AUC**, without relying on black-box deep learning.
 
-An additional image-based framework extends the same methodology to 12-lead ECG **images**, achieving **94.62% accuracy**.
-
 ---
 
-## 📌 Overview
+## Overview
 
 Early detection of Myocardial Infarction (heart attack) from ECG signals is critical for reducing mortality, but manual interpretation is time-consuming and variable across clinicians. Most automated approaches rely on complex deep learning models that are computationally expensive and hard to interpret.
 
 This project takes a different approach: **clinically-grounded feature engineering + classical ML ensembling**, prioritizing interpretability and efficiency while matching or exceeding typical deep learning performance on this task.
-
-Two pipelines are included:
-1. **Signal-based pipeline** — extracts features directly from raw ECG waveforms (PTB-XL dataset)
-2. **Image-based pipeline** — extracts equivalent features from scanned/photographed 12-lead ECG printouts (Mendeley ECG Image dataset), showing the method generalizes across data formats
 
 ---
 
@@ -30,7 +24,7 @@ ECG Input → Signal Preprocessing → Filtering → R-Peak Detection
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 - **Source:** [PTB-XL](https://physionet.org/content/ptb-xl/1.0.3/) — a large, publicly available clinical ECG dataset
 - ~6,000 records initially selected from the **MI** and **NORM (Normal)** classes
@@ -38,13 +32,9 @@ ECG Input → Signal Preprocessing → Filtering → R-Peak Detection
 - Leads used: **I, II, V1, V2** (4 of the standard 12 leads)
 - Sampling rate: 100 Hz
 
-Image-based extension:
-- **Source:** Mendeley ECG Image Dataset
-- 601 images processed (232 MI, 369 non-MI), standard 12-lead 3×4 grid layout
-
 ---
 
-## 🧠 Feature Engineering
+## Feature Engineering
 
 Rather than feeding raw signals into a deep network, ~80 clinically interpretable features are extracted per record across the selected leads, including:
 
@@ -85,9 +75,7 @@ The top predictive features (via SHAP analysis) include RR variability, QRS dura
 
 ---
 
-## 📈 Results
-
-### Signal-based model (PTB-XL)
+## Results
 
 | Model | Accuracy |
 |---|---|
@@ -111,48 +99,29 @@ The top predictive features (via SHAP analysis) include RR variability, QRS dura
 
 The low false-negative count is particularly relevant clinically, since missed MI diagnoses carry serious risk.
 
-### Image-based model (Mendeley ECG images)
-
-| Model | Accuracy |
-|---|---|
-| KNN | — |
-| Logistic Regression | — |
-| SVM | — |
-| **XGBoost** | 94.62% |
-| **Ensemble (soft voting)** | 94.62% |
-
-Precision: 92.86% · Recall: 95.12% · F1: 93.98% · ROC-AUC: 0.995
-
 ---
 
-## 🗂️ Repository Structure
+## Repository Structure
 
 ```
 .
 ├── Final_MI_Detection_Improved_92.ipynb   # Main notebook: full signal-based pipeline
-├── REPORT_SEM4.pdf                        # Full project report (methodology, results, discussion)
 ├── final_ensemble_model.pkl               # Trained weighted ensemble (RF + SVM + XGBoost)
 ├── scaler.pkl                             # Fitted StandardScaler
 ├── selector.pkl                           # Fitted SelectKBest feature selector
-├── label_encoder.pkl                      # Label encoder (MI / NORM)
-├── downloaded_records.pkl                 # Cached raw PTB-XL records
+├── label_encoder.pkl                      # Label encoder (MI / NORM)               
 ├── features_mi_only.pkl                   # Extracted feature matrix (X, y)
 └── README.md
 ```
 
-> Adjust this section to match your actual repo layout before committing.
-
----
-
 ## 🛠️ Tech Stack
 
 - **Language:** Python
-- **Environment:** Google Colab
 - **Signal processing:** NeuroKit2, PyWavelets, WFDB
 - **ML:** scikit-learn (Random Forest, SVM, SelectKBest, GridSearchCV), XGBoost, imbalanced-learn (SMOTE)
 - **Interpretability:** SHAP
-- **Visualization:** Matplotlib, Seaborn
-- **Data:** PTB-XL (PhysioNet), Mendeley ECG Image Dataset
+- **Visualization:** Matplotlib
+- **Data:** PTB-XL (PhysioNet)
 - **Serialization:** Pickle
 
 ---
@@ -186,15 +155,12 @@ prediction = model.predict(X_selected)        # 0 = Normal, 1 = MI
 probability = model.predict_proba(X_selected)  # MI probability
 ```
 
----
-
 ## 🔍 Key Findings
 
 - Manually engineered, clinically meaningful ECG features can rival deep learning approaches for MI detection while remaining fully interpretable.
 - Ensemble learning (RF + SVM + XGBoost) consistently outperformed any single classifier.
 - SHAP analysis confirmed that the model's decisions align with known clinical MI markers (ST-segment changes, QRS widening, T-wave inversion, RR variability).
-- The same feature-engineering + ensemble approach generalizes from raw signals to scanned ECG images, showing methodological flexibility.
-
+  
 ## ⚠️ Limitations & Future Work
 
 - Trained on a binary MI vs. Normal task; does not distinguish MI subtypes or other cardiac abnormalities.
@@ -202,18 +168,6 @@ probability = model.predict_proba(X_selected)  # MI probability
 - Feature extraction depends on reliable R-peak/wave detection, which can degrade on noisy signals.
 - Potential extensions: multi-class classification, deployment as a web app, external dataset validation, real-time ECG stream support.
 
----
-
-## 👥 Team
-
-Project developed as part of the Experiential Learning cluster (Electronics and Communication), RV College of Engineering, ACY 2025–26.
-
-| Name | USN |
-|---|---|
-| Manal Iqbal | 1RV24EC113 |
-| Nandana Nair | 1RV24EC130 |
-| Saana Shijo | 1RV24EC176 |
-| Suditi D Joshi | 1RV24EC262 |
 
 ---
 
