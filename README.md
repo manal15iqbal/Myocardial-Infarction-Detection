@@ -114,7 +114,7 @@ The low false-negative count is particularly relevant clinically, since missed M
 └── README.md
 ```
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Language:** Python
 - **Signal processing:** NeuroKit2, PyWavelets, WFDB
@@ -126,7 +126,7 @@ The low false-negative count is particularly relevant clinically, since missed M
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ```bash
 git clone <your-repo-url>
@@ -155,22 +155,16 @@ prediction = model.predict(X_selected)        # 0 = Normal, 1 = MI
 probability = model.predict_proba(X_selected)  # MI probability
 ```
 
-## 🔍 Key Findings
+## Key Findings
 
 - Manually engineered, clinically meaningful ECG features can rival deep learning approaches for MI detection while remaining fully interpretable.
 - Ensemble learning (RF + SVM + XGBoost) consistently outperformed any single classifier.
 - SHAP analysis confirmed that the model's decisions align with known clinical MI markers (ST-segment changes, QRS widening, T-wave inversion, RR variability).
   
-## ⚠️ Limitations & Future Work
+## Limitations & Future Work
 
 - Trained on a binary MI vs. Normal task; does not distinguish MI subtypes or other cardiac abnormalities.
 - Small test set for the signal-based model (95:5 split → ~289 test records); results should be validated on a larger held-out set.
 - Feature extraction depends on reliable R-peak/wave detection, which can degrade on noisy signals.
 - Potential extensions: multi-class classification, deployment as a web app, external dataset validation, real-time ECG stream support.
 
-
----
-
-## 📄 License
-
-Add a license of your choice (e.g., MIT) before making the repository public.
